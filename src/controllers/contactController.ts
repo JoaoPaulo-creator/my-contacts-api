@@ -1,10 +1,13 @@
 import { Request, Response } from "express";
+import ContactsRepository from "../repositories/ContactsRepository";
+
+
 
 class ContactController {
 
 	async index(request: Request, respose: Response){
-		// método usado para listar todos os contatos
-		return respose.json('Ola, mundo')
+		const contacts = await ContactsRepository.findAll()
+		return respose.json(contacts)
 	}
 
 	async	show(){
