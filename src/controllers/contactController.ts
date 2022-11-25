@@ -14,9 +14,9 @@ class ContactController {
 		const { id } = request.params
 		const contact = await ContactsRepository.findBydId(id)
 
-		if(!contact){
-			return response.status(404).json({ error: 'Contact not found'})
-		}
+		// if(!contact){
+		// 	return response.status(404).json({ error: 'Contact not found'})
+		// }
 
 		return response.status(200).json(contact)
 
@@ -24,22 +24,11 @@ class ContactController {
 
 	async store(request: Request, response: Response){
 		const { name, email, phone, category_id } = request.body
-
-		const contactExists = await ContactsRepository.findByEmail(email)
-
-
 		if(!name){
 			return response.status(400).json({ error: 'Name is required'})
 		}
 
-
-		if(contactExists){
-			return response.status(400).json({ error: 'Contact already exists'})
-		}
-
 		const contact = await ContactsRepository.create({ name, email, phone, category_id })
-
-
 		return response.status(201).json(contact)
 	}
 
@@ -55,9 +44,9 @@ class ContactController {
 			return response.status(400).json({ error: 'Name is required'})
 		}
 
-		if(!contactExists){
-			return response.status(404).json({ error: 'Contact not found'})
-		}
+		// if(!contactExists){
+		// 	return response.status(404).json({ error: 'Contact not found'})
+		// }
 
 		/*
 
@@ -65,10 +54,10 @@ class ContactController {
 		e também vai verificar se id encontrado é diferente do id que queremos editar
 
 		 */
-		const emailExists = await ContactsRepository.findByEmail(email)
-		if(emailExists && email.id !== id){
-			return response.status(400).json({ error: 'Contact already exists'})
-		}
+		// const emailExists = await ContactsRepository.findByEmail(email)
+		// if(emailExists && email.id !== id){
+		// 	return response.status(400).json({ error: 'Contact already exists'})
+		// }
 
 		const contact = await ContactsRepository.update(id, {
 			name, email, phone, category_id
@@ -87,9 +76,9 @@ class ContactController {
 		const { id } = request.params
 		const contact = await ContactsRepository.findBydId(id)
 
-		if(!contact){
-			return response.status(404).json({ error: 'Contact not found'})
-		}
+		// if(!contact){
+		// 	return response.status(404).json({ error: 'Contact not found'})
+		// }
 
 		await ContactsRepository.delete(id)
 		return response.sendStatus(204)
