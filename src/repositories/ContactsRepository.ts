@@ -24,16 +24,19 @@ class ContactsRepository {
 
 
 	async	findAll(){
-		const [row] = await query('select * from contacts', null)
+		const rows = await query('select * from contacts', '')
+		return rows
+	}
+
+	async findBydId(id: string){
+		const [row] = await query(`select * from contacts WHERE id = $1`, [id])
 		return row
-	}
-
-	findBydId(id: string){
 
 	}
 
-	findByEmail(email: string){
-
+	async findByEmail(email: string){
+		const [row] = await query(`select * from contacts WHERE email = $1`, [email])
+		return row
 	}
 
 	delete(id: string){
