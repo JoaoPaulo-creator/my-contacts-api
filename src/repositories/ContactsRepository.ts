@@ -23,7 +23,9 @@ class ContactsRepository {
 	}
 
 
-	findAll(){
+	async	findAll(){
+		const [row] = await query('select * from contacts', null)
+		return row
 	}
 
 	findBydId(id: string){

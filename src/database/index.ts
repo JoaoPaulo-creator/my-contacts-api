@@ -13,8 +13,9 @@ const client = new Client({
 })
 
 
-export const query = async (query, values) => {
-	console.log('Conectado ao banco de dados')
+client.connect().then(console.log('Conectado ao banco de dados')).catch(error => console.error(error))
+
+export const query = async (query: string, values: any) => {
 	const { rows }	= await client.query(query, values)
 	return rows
 }
