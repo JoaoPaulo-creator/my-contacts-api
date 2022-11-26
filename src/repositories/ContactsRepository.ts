@@ -32,19 +32,29 @@ class ContactsRepository {
 
 	async	findAll(orderBy: any = 'ASC'){
 			const ordenation = orderBy.toUpperCase() === 'DESC' ? 'DESC' : 'ASC'
-			const rows = await query(`select * from contacts order by name ${ordenation}`, '')
+			const rows = await query(`
+			SELECT contacts.*, categories.name AS category_name
+			FROM contacts
+			LEFT JOIN categories ON contacts.category_id = categories.id
+			ORDER BY contacts.name ${ordenation}
+			`
+			, '')
 			return rows
 
 
 	}
 
 	async findBydId(id: string){
-		const [row] = await query('SELECT * FROM contacts WHERE id = $1', [id])
+		const [row] = await query(`
+		SELECT contacts.*, categories.name AS category_name
+		FROM contacts
+		LEFT JOIN categories ON contacts.category_id = categories.id
+		WHERE contacts.id = $1;`, [id])
 		return row
 	}
 
 	async findByEmail(email: string){
-		const [row] = await query(`select * from contacts WHERE email = $1`, [email])
+		const [row] = await query(`SELECT * FROM contacts WHERE email = $1`, [email])
 		return row
 	}
 
