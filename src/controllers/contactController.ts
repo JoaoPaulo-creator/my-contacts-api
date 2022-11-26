@@ -83,9 +83,9 @@ class ContactController {
 		const { id } = request.params
 		const contact = await ContactsRepository.findBydId(id)
 
-		// if(!contact){
-		// 	return response.status(404).json({ error: 'Contact not found'})
-		// }
+		if(!contact){
+			return response.status(404).json({ error: 'Contact not found'})
+		}
 
 		await ContactsRepository.delete(id)
 		return response.sendStatus(204)
