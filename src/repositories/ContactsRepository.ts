@@ -39,7 +39,7 @@ class ContactsRepository {
 	}
 
 	async findBydId(id: string){
-		const [row] = await query('select * from contacts WHERE id = $1', [id])
+		const [row] = await query('SELECT * FROM contacts WHERE id = $1', [id])
 		return row
 	}
 
