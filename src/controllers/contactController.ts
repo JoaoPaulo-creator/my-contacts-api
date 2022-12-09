@@ -8,8 +8,8 @@ class ContactController {
 	async index(request: Request, response: Response){
 		// aplicando uma query
 		const { orderBy } = request.query
-
 		const contacts = await ContactsRepository.findAll(orderBy)
+
 		return response.json(contacts)
 	}
 

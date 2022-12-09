@@ -1,21 +1,18 @@
 import express from 'express'
 import router from './routes'
 import 'express-async-errors'
+import corsMiddleware from '../src/middlewares/cors'
+import errorHangling from './middlewares/errorHandling'
 
 const app = express()
+const cors = corsMiddleware
+const error = errorHangling
+
 
 app.use(express.json())
+app.use(cors)
 app.use(router)
-
-app.use((error, request, response, next) => {
-	console.log('### Error handling ###')
-	console.log('   ')
-	console.log('   ')
-
-	console.log(error)
-	response.sendStatus(500)
-	next()
-})
+app.use(error)
 
 
 app.listen(3001, () =>{
