@@ -10,7 +10,7 @@ class ContactController {
 		const { orderBy } = request.query
 		const contacts = await ContactsRepository.findAll(orderBy)
 
-		return response.json(contacts)
+		return response.status(200).json(contacts)
 	}
 
 	async	show(request: Request, response: Response){
