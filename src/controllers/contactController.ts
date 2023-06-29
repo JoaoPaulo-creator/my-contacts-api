@@ -59,7 +59,7 @@ class ContactController {
 		const { name, email, phone, category_id } = request.body;
 
 		if (!isValidUUID(id)) {
-			return response.status(400).json({ error: "Contact not found" });
+			return response.status(404).json({ error: "Contact not found" });
 		}
 
 		if (category_id && !isValidUUID(category_id)) {
